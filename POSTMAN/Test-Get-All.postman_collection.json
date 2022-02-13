@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "e0bac7d3-e18b-4ca2-a568-705e87034424",
+		"name": "Test-Get-All",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test-Get-All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/allPosts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"allPosts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

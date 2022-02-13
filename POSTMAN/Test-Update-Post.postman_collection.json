@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "5213047d-091f-448e-b36b-d76814d5e90b",
+		"name": "Test-Update-Post",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test-Update-Post",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"titolo-UPDATE\",\n    \"description\": \"descrizione-UPDATE\",\n    \"content\":\"content-UPDATE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/allPosts/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"allPosts",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

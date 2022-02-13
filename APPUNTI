@@ -1,0 +1,17 @@
+# LANCIARE IL DOCKER COMPOSE DELL'ISTANZA DEL DB
+docker-compose up
+
+# PRENDERE L'ID DEL CONTAINER CREATO
+docker container ls
+
+# ENTRARE NELL'ISTANZA (dicitando poi la pwd)
+docker exec -it 5c57b5d4a1a3  mysql -uroot -p
+
+# CREARE L'UTENTE INDICATO NEL FILE DEL COMPOSE (bisogna gia essere loggati nell'istanza mysql da terminale)
+CREATE USER 'admin'@'172.18.0.1' IDENTIFIED BY 'admin';
+
+# PER VEDERE TUTTI I DATABASE
+show databases;
+
+# PER SPOSTARSI SU UN DB SPECIFICO
+use [nome-db];

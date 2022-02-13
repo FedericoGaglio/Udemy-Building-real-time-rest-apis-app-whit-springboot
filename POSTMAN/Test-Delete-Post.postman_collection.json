@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "a6e45b08-3c70-4ea4-9913-e656217057d3",
+		"name": "Test-Delete-Post",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test-Delete-Post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"titolo-UPDATE\",\n    \"description\": \"descrizione-UPDATE\",\n    \"content\":\"content-UPDATE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/allPosts/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"allPosts",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
