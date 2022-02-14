@@ -5,7 +5,7 @@ docker-compose up
 docker container ls
 
 # ENTRARE NELL'ISTANZA (dicitando poi la pwd)
-docker exec -it 5c57b5d4a1a3  mysql -uroot -p
+docker exec -it [CONTAINER-ID]  mysql -uroot -p
 
 # CREARE L'UTENTE INDICATO NEL FILE DEL COMPOSE (bisogna gia essere loggati nell'istanza mysql da terminale)
 CREATE USER 'admin'@'172.18.0.1' IDENTIFIED BY 'admin';
@@ -13,5 +13,20 @@ CREATE USER 'admin'@'172.18.0.1' IDENTIFIED BY 'admin';
 # PER VEDERE TUTTI I DATABASE
 show databases;
 
+# PER VEDERE TUTTE LE TABLES
+show tables;
+
 # PER SPOSTARSI SU UN DB SPECIFICO
 use [nome-db];
+
+
+# -----------------------------------------------------------------------------------------------------------------------------
+	RISOLUZIONI            																									  |
+-------------------------------------------------------------------------------------------------------------------------------
+
+1) RISOLUZIONE ECCEZIONE => Error executing DDL via JDBC Statement (quando aggiungo una nuova tabella --> nel ex COMMENTS)
+   SOLUZIONE: prima fai nell appl yaml ddl-auto=create e poi dopo averlo lanciato ddl-auto=create-update)
+   			  Questp risolve effettivamente la problematica. Poi ovviamente lascia l'update, dopo averlo rimesso la prima volta.
+   
+   
+   
