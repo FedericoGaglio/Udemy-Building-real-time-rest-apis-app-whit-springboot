@@ -1,5 +1,8 @@
 package com.springboot.blog.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.springboot.blog.entity.Comment;
@@ -28,7 +31,6 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = mapToEntity(commentDto);
 
-        // retrieve post entity by id
         Post post = postRepository.findById(postId).get();
         
         comment.setPost(post);
@@ -59,5 +61,21 @@ public class CommentServiceImpl implements CommentService{
         comment.setBody(commentDto.getBody());
         return  comment;
     }
+
+
+
+	@Override
+	public List<CommentDto> getCommentsByPostId(long postId) {
+		
+		List<Comment> comments = this.commentRepository.findByPostId(postId);
+		List<CommentDto> cdt = new ArrayList<CommentDto>();
+		
+		// portiamo la lista di commmenti nella lista di commentDto
+		for(Comment comment : comments) {
+			cdt.add(mapToDTO(comment));
+		}
+		
+		return cdt;
+	}
 
 }
