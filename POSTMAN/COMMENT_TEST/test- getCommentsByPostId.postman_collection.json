@@ -1,0 +1,31 @@
+{
+	"info": {
+		"_postman_id": "978fb840-fbd9-4913-9b99-b1296b49b1cf",
+		"name": "test- getCommentsByPostId",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test getCommemntsByPostId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/posts/2/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"posts",
+						"2",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
