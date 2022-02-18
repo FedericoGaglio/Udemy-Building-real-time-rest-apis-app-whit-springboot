@@ -31,7 +31,7 @@ public class Post {
 	@GeneratedValue (							//OFFERTA DA JAVAX.PERSISTENCE (guarda sotto spiegazione)
 		strategy = GenerationType.IDENTITY
 	)							
-	private Long id;
+	private long id;
 	
 	@Column(name="title" , nullable=false)		//OFFERTA DA JAVAX.PERSISTENCE (guarda sotto spiegazione)
 	private String title;
@@ -42,8 +42,8 @@ public class Post {
 	@Column(name="content" , nullable=false)
 	private String content;
 	
-	@OneToMany( mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Comment> comments = new HashSet<>();
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Comment> comments = new HashSet<>();
 
 }
 

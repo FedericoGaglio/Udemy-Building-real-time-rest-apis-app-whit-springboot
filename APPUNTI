@@ -5,7 +5,7 @@ docker-compose up
 docker container ls
 
 # ENTRARE NELL'ISTANZA (dicitando poi la pwd)
-docker exec -it [CONTAINER-ID]  mysql -uroot -p
+docker exec -it [CONTAINER-ID]  mysql -u root -p
 
 # CREARE L'UTENTE INDICATO NEL FILE DEL COMPOSE (bisogna gia essere loggati nell'istanza mysql da terminale)
 CREATE USER 'admin'@'172.18.0.1' IDENTIFIED BY 'admin';
@@ -19,7 +19,14 @@ show tables;
 # PER SPOSTARSI SU UN DB SPECIFICO
 use [nome-db];
 
+# PER VEDERE LE COLONNE DI UNA DETERMINATA TABELLA IN UN DB
+SHOW COLUMNS FROM [table_name] IN [database_name];
 
+# COMANDO PER VEDERE LE FOREIGN KEY PRESENTI
+select * from INFORMATION_SCHEMA.TABLE_CONSTRAINTS where CONSTRAINT_TYPE = 'FOREIGN KEY';
+
+# PER AVERE INFORMAZIONI SPECIFICHE TRA TABELLA DELLA RELAZIONE DELLA FOREIGN KEY
+SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME = 'My_Table';
 -------------------------------------------------------------------------------------------------------------------------------
 	RISOLUZIONI            																									  |
 -------------------------------------------------------------------------------------------------------------------------------

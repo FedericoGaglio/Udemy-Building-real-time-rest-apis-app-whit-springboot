@@ -1,0 +1,20 @@
+{
+	"info": {
+		"_postman_id": "9c03e961-d719-40de-bc5d-ec9c853f142d",
+		"name": "Test-Create-Comment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test-Create-Comment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
