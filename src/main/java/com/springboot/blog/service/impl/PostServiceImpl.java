@@ -2,6 +2,7 @@ package com.springboot.blog.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,12 +19,15 @@ import com.springboot.blog.service.PostService;
 public class PostServiceImpl implements PostService{
 
 	private PostRepository postRepository;
+	
+	//private ModelMapper mapper;
 
 
 
 	public PostServiceImpl(PostRepository postRepository) {
 		//super();
 		this.postRepository = postRepository;
+		//this.mapper = mapper;
 	}
 
 
@@ -184,6 +188,8 @@ public class PostServiceImpl implements PostService{
 	/*QUELLI CHE SEGUONO SONOP QUINDI DUE METODI AUSILIARIW*/
 
 	private Post mapToEntity(PostDto postDto) {
+		
+		//Post post = mapper.map(postDto, Post.class);
 
 		Post post = new Post();
 		post.setTitle(postDto.getTitle());
@@ -194,6 +200,8 @@ public class PostServiceImpl implements PostService{
 	}
 
 	private PostDto mapToDTO(Post post) {
+		
+		//PostDto postDto = mapper.map(post, PostDto.class);
 
 		PostDto postDto = new PostDto();
 		postDto.setId(post.getId());

@@ -1,5 +1,7 @@
 package com.springboot.blog.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,9 +30,9 @@ public class PostController {
 	
 	//CREATE A POST
 	@PostMapping("/api/posts") 		//per indicare che sto andando a mappare un operazione di HTTP.POST
-	public ResponseEntity<PostDto> createPost (@RequestBody PostDto postDto){
+	public ResponseEntity<PostDto> createPost ( @Valid @RequestBody PostDto postDto){
 		return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
-	}
+	} // l'annotazione valid viene utilizzata sulla base del pacchetto di validazione spring boot 
 	
 	//REQUEST BODY: contiene il corpo di una richiesta che di fatto è un oggetto da andare a mappare
 
@@ -69,7 +71,7 @@ public class PostController {
 	
 	// UPDATE POST BY ID
 	@PutMapping("api/allPosts/{id}")
-	public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto, @PathVariable(name = "id") long id) {
+	public ResponseEntity<PostDto> updatePost( @Valid @RequestBody PostDto postDto, @PathVariable(name = "id") long id) {
 		return new ResponseEntity<PostDto>(postService.updatePost(postDto, id),HttpStatus.OK);
 	}
 	

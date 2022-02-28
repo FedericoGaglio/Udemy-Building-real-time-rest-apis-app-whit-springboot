@@ -1,15 +1,34 @@
 package com.springboot.blog.payload;
 
+import java.util.Set;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
 public class PostDto {
 	
 	private Long id;
+	
+	/*	ESEMPIO DELLA VALIDAZIONE DEI CAMPI. Supponiamo infatti che il titolo:
+	 *  1) non possa essere nullo o vuoto
+	 *  2) deve avere almeno due caratteri
+	 *  */
+	@NotEmpty
+	@Size (min=2, message="Il post deve avere almeno due caratteri!")
 	private String title;
+	
+	@NotEmpty
+	@Size (min=10, message="La descrizione deve avere almeno 10 caratteri!")
 	private String description;
+	
+	@NotEmpty
 	private String content;
-
+	
+	
+	//private Set<CommentDto> commentDtoSet;
 }
 
 
