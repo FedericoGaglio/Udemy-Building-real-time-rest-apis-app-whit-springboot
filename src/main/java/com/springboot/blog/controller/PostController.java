@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +30,9 @@ public class PostController {
 	}
 	
 	//CREATE A POST
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/api/posts") 		//per indicare che sto andando a mappare un operazione di HTTP.POST
-	public ResponseEntity<PostDto> createPost ( @Valid @RequestBody PostDto postDto){
+	public ResponseEntity<PostDto> createPost ( @Valid @RequestBody PostDto postDto ){
 		return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
 	} // l'annotazione valid viene utilizzata sulla base del pacchetto di validazione spring boot 
 	
@@ -70,6 +72,7 @@ public class PostController {
 	
 	
 	// UPDATE POST BY ID
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("api/allPosts/{id}")
 	public ResponseEntity<PostDto> updatePost( @Valid @RequestBody PostDto postDto, @PathVariable(name = "id") long id) {
 		return new ResponseEntity<PostDto>(postService.updatePost(postDto, id),HttpStatus.OK);
@@ -77,6 +80,7 @@ public class PostController {
 	
 	
 	// DELETE POST BY ID
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("api/allPosts/{id}")
 	public ResponseEntity<String> deletePostByID(@PathVariable(name = "id") long id) {
 		postService.deletePostByID(id);
