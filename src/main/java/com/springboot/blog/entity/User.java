@@ -25,8 +25,6 @@ import lombok.Data;
 				@UniqueConstraint(columnNames = {"email"})
 		}
       )
-
-
 public class User {
 	
 	@Id
