@@ -19,13 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.blog.entity.Role;
 import com.springboot.blog.entity.User;
+import com.springboot.blog.payload.JWTAuthResponse;
 import com.springboot.blog.payload.LoginDto;
 import com.springboot.blog.payload.SignUpDto;
 import com.springboot.blog.repository.RoleRepository;
 import com.springboot.blog.repository.UserRepository;
+import com.springboot.blog.security.JWTTokenProvider;
 
 @RestController
-@RequestMapping("/api/auth") 
+@RequestMapping("/api/v1/auth") 
 public class AuthController {
 	
 	//injection (non essendo direttamente creata da me come class ad ex, la dichiaro direttamente
@@ -42,10 +44,12 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private JWTTokenProvider tokenProvider;
 	
 	
 	@PostMapping("/signin")
-	private ResponseEntity<String> authenticationUser(@RequestBody LoginDto loginDto) {
+	private ResponseEntity<JWTAuthResponse> authenticationUser(@RequestBody LoginDto loginDto) {
 		
 		Authentication  auth =  authenticatormanager.authenticate(new UsernamePasswordAuthenticationToken(
 											loginDto.getUsernameOrEmail(), 
@@ -54,8 +58,12 @@ public class AuthController {
 		
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		
-		return new ResponseEntity<>("L'utente si è segnato correttamente!", HttpStatus.OK);
+		//prendiamoci il token direttamente dal token provider
+		String token = tokenProvider.generateToken(auth);
 		
+		//return new ResponseEntity<>("L'utente si è segnato correttamente!", HttpStatus.OK);
+		
+		return ResponseEntity.ok(new JWTAuthResponse(token));		
 	}
 	
 	/**

@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "ad1c9e9b-9dc6-4902-a1ef-04e1489d746a",
+		"name": "TEST-VERSIONING-BY CONTENT NEGOTIATION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test-/api/posts/1 negotiation 1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.javaguides.v1+json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/allPosts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"allPosts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-/api/posts/1 negotiation 2",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.javaguides.v2+json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/allPosts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"allPosts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

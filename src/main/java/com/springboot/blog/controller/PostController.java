@@ -1,5 +1,8 @@
 package com.springboot.blog.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.blog.payload.PostDto;
+import com.springboot.blog.payload.PostDto2;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
 
@@ -55,7 +59,7 @@ public class PostController {
 		return postService.getAllPosts(pageNo, pageSize);
 	}*/
 	
-	@GetMapping("/api/allPosts")
+	@GetMapping("/api/v1/allPosts")
 	public PostResponse getAllPosts( @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
 			                         @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
 			                         @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
@@ -64,16 +68,41 @@ public class PostController {
 	}
 	
 	// GET POST BY ID
-	@GetMapping("api/allPosts/{id}")
-	public ResponseEntity<PostDto> getByID(@PathVariable(name = "id") long id){
+	/*Questo get mapping è stato modificato per fare un  esempio di versioning by URI PATH*/
+	@GetMapping(value = "api/v1/allPosts/{id}")
+	public ResponseEntity<PostDto> getByIDV1(@PathVariable(name = "id") long id){
 		return new ResponseEntity<PostDto>(postService.getByID(id),HttpStatus.OK);
 	}
 	
 	
+	/*Questo get mapping è stato aggiunto per fare un  esempio di versioning by URI PATH*/
+	@GetMapping(value = "api/allPosts/{id}")
+	public ResponseEntity<PostDto2> getByIDV2(@PathVariable(name = "id") long id){
+		
+		PostDto pdt = postService.getByID(id);
+		PostDto2 pdt2 = new PostDto2();
+		
+		pdt2.setId(pdt.getId());
+		pdt2.setTitle(pdt.getTitle());
+		pdt2.setDescription(pdt.getDescription());
+		pdt2.setContent(pdt.getContent());
+		
+		//aggiungo questa che sarebbe una modifica all api precedente -> rappresenta questa lista
+		//una differenza rispetto alle api precedente, motivo per il quale vado a fare versioning
+		List<String> tags = new ArrayList<String>();
+		tags.add("Java");
+		tags.add("Spring");
+		tags.add("Programming");
+		
+		pdt2.setTags(tags);
+		
+		return ResponseEntity.ok(pdt2);
+	}
+	
 	
 	// UPDATE POST BY ID
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("api/allPosts/{id}")
+	@PutMapping("api/v1/allPosts/{id}")
 	public ResponseEntity<PostDto> updatePost( @Valid @RequestBody PostDto postDto, @PathVariable(name = "id") long id) {
 		return new ResponseEntity<PostDto>(postService.updatePost(postDto, id),HttpStatus.OK);
 	}
@@ -81,7 +110,7 @@ public class PostController {
 	
 	// DELETE POST BY ID
 	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("api/allPosts/{id}")
+	@DeleteMapping("api/v1/allPosts/{id}")
 	public ResponseEntity<String> deletePostByID(@PathVariable(name = "id") long id) {
 		postService.deletePostByID(id);
 		return new ResponseEntity<String>("Il post è stato cancellato con successo", HttpStatus.OK);

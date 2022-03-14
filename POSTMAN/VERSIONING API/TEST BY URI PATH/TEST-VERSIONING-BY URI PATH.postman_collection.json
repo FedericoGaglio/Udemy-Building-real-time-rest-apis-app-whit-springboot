@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "86067d7f-2051-4618-9975-c549250e26d6",
+		"name": "TEST-VERSIONING-BY URI PATH",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test-/api/v1/posts/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/allPosts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"allPosts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test-/api/v2/posts/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v2/allPosts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"allPosts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

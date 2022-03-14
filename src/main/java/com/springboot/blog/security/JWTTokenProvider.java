@@ -34,19 +34,16 @@ public class JWTTokenProvider {
 	public String generateToken(Authentication auth) {
 		
 		String username = auth.getName();
-		Date currentDate = new Date();
-		Date expireDate = new Date(currentDate.getTime() + jwtExpirationTimeInMS);
-		
-		
-		String token = Jwts.builder()
-				.setSubject(username)
-				.setIssuedAt(new Date())
-				.setExpiration(expireDate)
-				.signWith(SignatureAlgorithm.HS512, jwtsecret)
-				.compact();
-		
-		
-		return token;
+        Date currentDate = new Date();
+        Date expireDate = new Date(currentDate.getTime() + jwtExpirationTimeInMS);
+
+        String token = Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(expireDate)
+                .signWith(SignatureAlgorithm.HS512, jwtsecret)
+                .compact();
+        return token;
 	}
 	
 	//get username direttamente dal token

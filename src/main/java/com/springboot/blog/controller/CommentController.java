@@ -19,7 +19,7 @@ import com.springboot.blog.payload.CommentDto;
 import com.springboot.blog.service.CommentService;
 
 @RestController   		
-@RequestMapping("/api/") 
+@RequestMapping("/api/v1") 
 public class CommentController {
 
 	private CommentService commentService;
