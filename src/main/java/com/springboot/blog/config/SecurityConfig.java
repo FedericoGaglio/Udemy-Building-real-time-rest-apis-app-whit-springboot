@@ -30,11 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
-	
-	//aggiunto attributo dopo aver creato la classe JWTAuthResponse
-	/*questa classe aveva un metodo, ovvero commence, che veniva chiamato ogni volta che viene generata 
-	 * un'eccezione a causa di un utente non autenticato che tenta di accedere a una 
-	 * risorsa che richiede un'autenticazione*/
+
 	@Autowired 
 	private JwtAuthenticationEntryPoint authenticationEntryPoint;
 	
