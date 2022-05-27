@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure( HttpSecurity http) throws Exception {
 
 		http	
-		.csrf().disable() // disattivazione  della protezione csrf
+		.csrf().disable() 
 		
 		.exceptionHandling()
         .authenticationEntryPoint(authenticationEntryPoint)
@@ -67,10 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .antMatchers("/swagger-resources/**").permitAll()
         .antMatchers("/swagger-ui.html").permitAll()
         .antMatchers("/webjars/**").permitAll()
-		.anyRequest() // mappa qualsiasi richiesta
-		.authenticated(); // specifica che gli url "sono concessi" a qualsiasi utente AUTENTICATO
-		//.and() //TOLTA DOPO IMPLEMENTAZIOMNE DTO -> JWTAUTHRESPONSE
-		//.httpBasic(); // configurazione http basica //TOLTA DOPO IMPLEMENTAZIOMNE DTO -> JWTAUTHRESPONSE
+		.anyRequest() 
+		.authenticated();
 		
         http.
         addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -85,49 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .passwordEncoder(passwordEncoder());
     }
 	
-	
-	/**
-	 * Parte relativa al modulo di LOGIN/SIGNING
-	 * 
-	 * L' authenticationManager serve semplicemente a processare le richieste che vengono effettutate.
-	 */
 	@Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-
-//	@Override
-//	@Bean
-//	protected UserDetailsService userDetailsService() {
-//
-//		/* siccome abbiamo creato l'utente pippo qui, possiamo andare a commentare/togliere l'utente
-//		 * dichiarato nel file application.properties con le medesime caratteristiche*/
-//		UserDetails pippo = User.builder()
-//				.username("pippo")
-//				.password(passwordEncoder().encode("pwd"))
-//				.roles("USER")
-//				.build();
-//		
-//		
-//		UserDetails admin = User.builder()
-//				.username("admin")
-//				.password(passwordEncoder().encode("admin"))
-//				.roles("ADMIN")
-//				.build();
-//
-//		return new InMemoryUserDetailsManager(pippo, admin);
-
-
-		/*
-		 * 
-		 * UserDetails ------->>>>> Fornisce informazioni sull'utente di base.
-		 * Le implementazioni non vengono utilizzate direttamente da Spring
-		 * Security per motivi di sicurezza. Memorizzano semplicemente le informazioni 
-		 * sull'utente che vengono successivamente incapsulate negli oggetti di autenticazione.
-		 * Ciò consente di archiviare in una posizione comoda le informazioni dell'utente non correlate 
-		 * alla sicurezza (come indirizzi e-mail, numeri di telefono, ecc.).
-		 * */
-	//}
 }

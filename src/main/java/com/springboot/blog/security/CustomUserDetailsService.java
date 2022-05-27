@@ -15,8 +15,6 @@ import com.springboot.blog.entity.Role;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.repository.UserRepository;
 
-//di fatto questa classe è come se fosse un serviceimpl
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

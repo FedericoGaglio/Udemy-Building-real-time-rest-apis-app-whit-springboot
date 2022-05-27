@@ -11,7 +11,6 @@ public interface CommentService {
 	
     CommentDto createComment(long postId, CommentDto commentDto);
 
-    // all interno utilizzo il primo metodo definito nel comment Repository
     List<CommentDto> getCommentsByPostId(long postId);
     
     

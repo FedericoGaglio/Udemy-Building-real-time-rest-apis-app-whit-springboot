@@ -19,110 +19,32 @@ import com.springboot.blog.service.PostService;
 public class PostServiceImpl implements PostService{
 
 	private PostRepository postRepository;
-	
-	//private ModelMapper mapper;
-
-
 
 	public PostServiceImpl(PostRepository postRepository) {
-		//super();
 		this.postRepository = postRepository;
-		//this.mapper = mapper;
 	}
 
-
-	// FOR POST METHOD
 	@Override
 	public PostDto createPost(PostDto postDto) {
 
-		//CONVERSIONE  da DTO a ENTITY (------->>>>> RIMPIAZZATO DA METODO mapToEntity <<<<<-------)
-		/*Post post = new Post();
-		post.setTitle(postDto.getTitle());
-		post.setDescription(postDto.getDescription());
-		post.setContent(postDto.getContent());*/	
-
-		//Post newPost = this.postRepository.save(post); //PER SALVARE UNA DETERMINATA ENTITA
 		Post newPost = this.postRepository.save(mapToEntity(postDto));
 
-		//CONVERSIONE da Entity a DTO  (------->>>>> RIMPIAZZATO DA METODO mapToDTO <<<<<-------)
-		/*PostDto postResponse = new PostDto();
-		postResponse.setId(newPost.getId());
-		postResponse.setTitle(newPost.getTitle());
-		postResponse.setDescription(newPost.getDescription());
-		postResponse.setContent(newPost.getContent());*/
 		PostDto postdto = mapToDTO(newPost);
 		
 		return postdto;
 	}
 
 
-	//FOR GET ALL POSTS METHOD
-	/*@Override
-	public List<PostDto> getAllPosts(int pageNo, int pageSize){
-
-		List<Post> allPosts = this.postRepository.findAll();
-		List<PostDto> allDtoPosts= new ArrayList<PostDto>();
-
-		for(Post post: allPosts) {
-//			PostDto postResponse = new PostDto();
-//			postResponse.setId(post.getId());
-//			postResponse.setTitle(post.getTitle());
-//			postResponse.setDescription(post.getDescription());
-//			postResponse.setContent(post.getContent());
-			allDtoPosts.add(mapToDTO(post));
-		}
-
-
-		return allDtoPosts;
-	}*/
-	
-	/*@Override
-	public List<PostDto> getAllPosts(int pageNo, int pageSize){
-		
-		
-		// PAGING AND SORTING SUPPORT -->> CREAZIONE DI UN'INSTANZA PAGINABILE
-		Pageable pageable = (Pageable) PageRequest.of(pageNo, pageSize);
-		
-
-		Page<Post> allPosts = this.postRepository.findAll(pageable); // FIND ALL DELLA CLASSE PAGEABLE
-		
-		// PER FARE IL GET DEL CONTENUTO DELLA PAGINA
-		List<Post> listOfPosts = allPosts.getContent();
-		
-		
-		List<PostDto> allDtoPosts= new ArrayList<PostDto>();
-
-		for(Post post: listOfPosts) {
-//			PostDto postResponse = new PostDto();
-//			postResponse.setId(post.getId());
-//			postResponse.setTitle(post.getTitle());
-//			postResponse.setDescription(post.getDescription());
-//			postResponse.setContent(post.getContent());
-			allDtoPosts.add(mapToDTO(post));
-		}
-
-
-		return allDtoPosts;
-	}*/
-	
-	
-	/*ULTERIORE MODIFICA CON CUSTOMIZZAZIONE DEL PAGINE AND SORTING E USO POSTRESPONSE CLASS*/
 	@Override
 	public PostResponse getAllPosts(int pageNo, int pageSize, String sortBy, String sortDir){
 		
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 		
-		
-		// PAGING AND SORTING SUPPORT -->> CREAZIONE DI UN'INSTANZA PAGINABILE
-		//Pageable pageable = (Pageable) PageRequest.of(pageNo, pageSize);
 		Pageable pageable = (Pageable) PageRequest.of(pageNo, pageSize, sort);
 		
-
-		Page<Post> allPosts = this.postRepository.findAll(pageable); // FIND ALL DELLA CLASSE PAGEABLE
+		Page<Post> allPosts = this.postRepository.findAll(pageable); 
 		
-		// PER FARE IL GET DEL CONTENUTO DELLA PAGINA
 		List<Post> listOfPosts = allPosts.getContent();
-		
 		
 		List<PostDto> allDtoPosts= new ArrayList<PostDto>();
 
@@ -142,22 +64,15 @@ public class PostServiceImpl implements PostService{
 		return postReaponse;
 	}
 	
-	
-	// FOR GET BY ID
 	@Override
 	public PostDto getByID(long id) {
 		
-		
-		/*Ho dovuto aggiungere il get finale per convertire l'oggetto OPTIONAL<POST> ritornato dal getById
-		 * in un oggetto POST secco*/
 		Post postFounded = this.postRepository.findById(id).get();
 		
 		return mapToDTO(postFounded);
 		
 	}
 
-
-	// UPDATE POST 
 	@Override
 	public PostDto updatePost(PostDto postDto, long id) {
 		
@@ -167,30 +82,20 @@ public class PostServiceImpl implements PostService{
 		postFounded.setDescription(postDto.getDescription());
 		postFounded.setContent(postDto.getContent());
 		
-		// LASCIO L'OPERAZIONE SUL DB DI SALVATAGGIO ALL'ENTITA E NON AL DTO
 		Post updatePost = this.postRepository.save(postFounded);
 		
 		return mapToDTO(updatePost);
 		
 	}
 	
-	
-	// DELETE POST BY ID
 	@Override
 	public void deletePostByID (long id) {
 		
 		this.postRepository.deleteById(id);
 	}
 
-	/*Siccome nei metodi di create post e getall uno una stessa parte di codice che è quella che risulta essere
-	 * commentata, invece che ripetere il codice vado a fare un metodo unico*/
-
-	/*QUELLI CHE SEGUONO SONOP QUINDI DUE METODI AUSILIARIW*/
-
 	private Post mapToEntity(PostDto postDto) {
 		
-		//Post post = mapper.map(postDto, Post.class);
-
 		Post post = new Post();
 		post.setTitle(postDto.getTitle());
 		post.setDescription(postDto.getDescription());
@@ -200,8 +105,6 @@ public class PostServiceImpl implements PostService{
 	}
 
 	private PostDto mapToDTO(Post post) {
-		
-		//PostDto postDto = mapper.map(post, PostDto.class);
 
 		PostDto postDto = new PostDto();
 		postDto.setId(post.getId());
@@ -209,19 +112,7 @@ public class PostServiceImpl implements PostService{
 		postDto.setDescription(post.getDescription());
 		postDto.setContent(post.getContent());
 		
-		
 		return postDto;
 	}
 
 }
-
-
-/*
- * 
- * Annotazione SERVICE:
- * serve per offrire delle possibili operazioni impementate
- * 
- * 
- * 
- * 
- */

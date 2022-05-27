@@ -29,17 +29,5 @@ public class ResourceNotFoundException extends RuntimeException{
 	public long getFieldValue() {
 		return fieldValue;
 	}
-	
-	
-	/*
-	 * 
-	 * Annotazione @ResponseStatus
-	 * Serve per marcare un metodo o un eccezione andando a mostrare il TIPO DI ERRORE TRAMITE CODICE e anche
-	 * IL MOTIVO di tale eccezione.
-	 * 
-	 * */
-
-
-	
 
 }

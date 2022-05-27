@@ -41,23 +41,5 @@ public class User {
 			   joinColumns = @JoinColumn( name = "user_id", referencedColumnName = "id"),
 			   inverseJoinColumns = @JoinColumn( name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<>();
-	
-	/**
-	 * 
-	 * dunque in questo caso stiamo definendo una relazione many to many tra role e user. Per definizione
-	 * essendo una many to many, oltre alle due classi legate tra di loro, esisterà anche una tabella di join
-	 * che lega le due entita.
-	 * 
-	 * quindi in questo caso attraverso @JoinTable vado ad indicare il nome della tabella di join
-	 * che mi andra a legaree tra di loro le due classi (user e role).
-	 * 
-	 * tramite JOINCOLUMNS vado con il name ad indicare la foreign key che si riferisce all'id della tabella
-	 * della entita user che verrà messa nella tabella di join (in relazione al role ovviamente)
-	 * 
-	 * tramite inverseJoinColumns indico Le colonne della chiave esterna della tabella di join che
-	 *  fanno riferimento alla tabella primaria dell'entità che non possiede l'associazione.(concetto
-	 *  identico ma opposto rispetto al join column, quindi definito a role e non a user)
-	 * 
-	 */
 
 }

@@ -30,8 +30,6 @@ import com.springboot.blog.security.JWTTokenProvider;
 @RequestMapping("/api/v1/auth") 
 public class AuthController {
 	
-	//injection (non essendo direttamente creata da me come class ad ex, la dichiaro direttamente
-	// e la vado ad iniettare nel contesto tramite  l'autowired)
 	@Autowired
 	private AuthenticationManager authenticatormanager;
 	
@@ -58,47 +56,21 @@ public class AuthController {
 		
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		
-		//prendiamoci il token direttamente dal token provider
 		String token = tokenProvider.generateToken(auth);
-		
-		//return new ResponseEntity<>("L'utente si è segnato correttamente!", HttpStatus.OK);
 		
 		return ResponseEntity.ok(new JWTAuthResponse(token));		
 	}
 	
-	/**
-	 * METODO authenticationUser:
-	 * 
-	 *  Inizialmente dichiaro un oggetto di tipo ->Authentication (Rappresenta il token per una richiesta
-	 *  di autenticazione o per un'entità autenticata una volta che la richiesta è stata elaborata dal 
-	 *  metodo AuthenticationManager.authenticate(Authentication). Una volta che la richiesta è 
-	 *  stata autenticata, l'Autenticazione verrà solitamente archiviata in un SecurityContext
-	 *  thread-local gestito dal SecurityContextHolder dal meccanismo di autenticazione utilizzato. 
-	 *  È possibile ottenere un'autenticazione esplicita, senza utilizzare uno dei meccanismi di 
-	 *  autenticazione di Spring Security, creando un'istanza di autenticazione e utilizzando il codice:)
-	 *  
-	 *  
-	 *  SecurityContextHolder -> rappresenta il contesto nel quale viene STORATA la mia richiesta di
-	 *  autenticazione
-	 */
-	
-	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser (@RequestBody SignUpDto signUpDto) {
-		
-		// controllo se l'utente gia esiste o meno nel db
 		
 		if(userRepository.existsByUsername(signUpDto.getUsername())) {
 			return new ResponseEntity<>("Questo utente risulta essere gia registrato!", HttpStatus.BAD_REQUEST);
 		}
 		
-		// aggiunta controllo sulla mail se esiste nel db
-		
 		if(userRepository.existsByEmail(signUpDto.getEmail())) {
 			return new ResponseEntity<>("Questa email risulta essere gia registrata!", HttpStatus.BAD_REQUEST);
 		}
-		
-		// se allora questo utente non esiste ne vado a creare uno nuovo che inserisvo nel db
 		
 		User user = new User();
 		user.setName(signUpDto.getName());
@@ -110,7 +82,6 @@ public class AuthController {
 		
 		user.setRoles(Collections.singleton(roles));
 		
-		//metodo crud offert da jpa repositpory
 		userRepository.save(user);
 		
 		return new ResponseEntity<>("Utente registrato correttamente", HttpStatus.OK);

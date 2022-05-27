@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/*classe fatta per customizzare il pagin and sorting*/
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

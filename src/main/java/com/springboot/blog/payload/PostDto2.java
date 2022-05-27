@@ -23,6 +23,6 @@ public class PostDto2 {
 	@NotEmpty
 	private String content;
 	
-	private List<String> tags; //ABBIAMO AGGIUNTO QUESTO NUOVO ATTRIBUTO PER CUI ANDIAMO AD EFFETTUARE VERSIONING
+	private List<String> tags;
 
 }

@@ -20,7 +20,6 @@ public class CommentServiceImpl implements CommentService{
 
 	private CommentRepository commentRepository;
 	private PostRepository postRepository;
-	//private ModelMapper mapper;
 
 	public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
 		this.commentRepository = commentRepository;
@@ -43,12 +42,8 @@ public class CommentServiceImpl implements CommentService{
         return mapToDTO(newComment);
     }
 
-
-	/*QUELLI CHE SEGUONO SONOP QUINDI DUE METODI AUSILIARIW*/
-
 	
 	private CommentDto mapToDTO(Comment comment){
-		//CommentDto commentDto = mapper.map(comment, CommentDto.class);
         CommentDto commentDto = new CommentDto();
         commentDto.setId(comment.getId());
         commentDto.setName(comment.getName());
@@ -58,7 +53,6 @@ public class CommentServiceImpl implements CommentService{
     }
 
     private Comment mapToEntity(CommentDto commentDto){
-    	//Comment comment = mapper.map(commentDto, Comment.class);
         Comment comment = new Comment();
         comment.setId(commentDto.getId());
         comment.setName(commentDto.getName());
@@ -75,7 +69,6 @@ public class CommentServiceImpl implements CommentService{
 		List<Comment> comments = this.commentRepository.findByPostId(postId);
 		List<CommentDto> cdt = new ArrayList<CommentDto>();
 		
-		// portiamo la lista di commmenti nella lista di commentDto
 		for(Comment comment : comments) {
 			cdt.add(mapToDTO(comment));
 		}

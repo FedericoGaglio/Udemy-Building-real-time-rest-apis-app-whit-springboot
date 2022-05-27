@@ -21,16 +21,12 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JWTTokenProvider {
 	
-	/* Questi valori fanno riferimento a quelli che sono andato  a settare all'interno dell'application.properties
-	 * Per accedere a questi valori utilizzo l'annotazione value andandomeli a pescare tramite $*/
-	
 	@Value("${app.jwt-secret}")
 	private String jwtsecret;
 	
 	@Value("${app.jwt-expiration-milliseconds}")
 	private int jwtExpirationTimeInMS;
 	
-	//metodo per la generazione di un token
 	public String generateToken(Authentication auth) {
 		
 		String username = auth.getName();
@@ -46,7 +42,6 @@ public class JWTTokenProvider {
         return token;
 	}
 	
-	//get username direttamente dal token
 	public String getUsernameFromJWT(String token){
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtsecret)
@@ -55,7 +50,6 @@ public class JWTTokenProvider {
         return claims.getSubject();
     }
 
-    // validate JWT token
     public boolean validateToken(String token){
         try{
             Jwts.parser().setSigningKey(jwtsecret).parseClaimsJws(token);
